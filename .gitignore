@@ -1,5 +1,7 @@
 # Project files
 *.sqlite3
+.sass-cache
+.sass-cache/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

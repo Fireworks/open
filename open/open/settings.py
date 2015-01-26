@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '53qspff317cyqb7yk(rj+n$@+v8f9+5+ki6+0zuq@c!1w=av3='
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!manage
 DEBUG = True
 
 TEMPLATE_DEBUG = True
@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'openapp',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,4 +87,11 @@ STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
+)
+
+COMPRESS_ROOT = '/static/'
+
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
 )

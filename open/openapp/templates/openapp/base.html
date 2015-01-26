@@ -1,3 +1,4 @@
+{% load compress %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -16,6 +17,9 @@
 
         <link rel="stylesheet" href="{% static "css/normalize.css" %}">
         <link rel="stylesheet" href="{% static "css/main.css" %}">
+        {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static "css/styles.scss" %}">
+        {% endcompress %}
         <script src="{% static "js/vendor/modernizr-2.6.2.min.js" %}"></script>
     </head>
     <body>
@@ -24,8 +28,14 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
+        {% include "openapp/header.html" %}
+
+        <div class="content">
         {% block content %}
         {% endblock %}
+        </div>
+
+        {% include "openapp/footer.html" %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static "js/vendor/jquery-1.10.2.min.js" %}"><\/script>')</script>
