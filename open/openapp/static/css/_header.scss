@@ -1,12 +1,62 @@
 header {
     background: $dk-gray;
     width: 100%;
-    height: 75px;
-
+    height: 50px;
+    @media #{$tablet} {
+        height: 65px;
+    }
     .logo {
         display: inline-block;
-        font-size: 50px;
+        font-size: 35px;
         color: $white;
-        line-height: 75px;
+        line-height: 50px;
+        @media #{$tablet} {
+            line-height: 65px;
+            font-size: 45px;
+        }
+    }
+
+    .actions {
+        display: table;
+        float: right;
+        a {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        i {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            width: 50px;
+            height: 50px;
+            font-size: 35px;
+            line-height: 35px;
+            color: $white;
+            @media #{$tablet} {
+                width: 65px;
+                height: 65px;
+                line-height: 45px;
+                font-size: 45px;
+            }
+        }
+        .add {
+            background: $lt-green;
+            &:hover {
+                background: lighten($lt-green, 20%);
+            }
+        }
+        .search {
+            background: $lt-blue;
+            &:hover {
+                background: lighten($lt-blue, 20%);
+            }
+        }
+        .account {
+            background: $lt-red;
+            &:hover {
+                background: lighten($lt-red, 20%);
+            }
+        }
     }
 }

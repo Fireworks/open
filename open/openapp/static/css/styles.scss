@@ -4,3 +4,18 @@
 //Global Components
 @import "_header";
 @import "_footer";
+
+body {
+    background: $site-bg;
+}
+
+.content {
+    padding: 20px;
+}
+
+.info-box {
+    @include border-radius(5px);
+    background: $white;
+    padding: 10px;
+    margin-bottom: 15px;
+}
