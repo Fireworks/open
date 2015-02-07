@@ -8,3 +8,6 @@ def home(request):
 
 def project(request, pid):
     return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid)})
+
+def submit(request):
+    return render(request, "openapp/submit.html")

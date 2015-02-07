@@ -1,0 +1,20 @@
+{% extends "openapp/base.html" %}
+{% block content %}
+    <div class="info-box">
+        <form>
+            <h3 class="form-title">Submit a Project</h3>
+            Project Title: <input class="form-input" type="text" /><br/>
+            Project Language: 
+            <select>
+                <option>Python</option>
+                <option>Javascript</option>
+                <option>Java</option>
+            </select>
+            <br/>
+            Author: <input class="form-input" type="text" />
+            <br/>
+            Description: <textarea placeholder="Details about your open-source project..."></textarea>
+            <br/>
+            <input class="form-submit" type="submit" value="Submit Project" />
+        </form>
+{% endblock %}

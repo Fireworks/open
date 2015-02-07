@@ -7,4 +7,5 @@ urlpatterns = patterns('',
 
     url(r'^$', 'openapp.views.home', name='home'),
     url(r'^project/(\d+)/$', 'openapp.views.project', name="project"),
+    url(r'^submit/$', 'openapp.views.submit', name="submit"),
 )

@@ -19,3 +19,14 @@ body {
     padding: 10px;
     margin-bottom: 15px;
 }
+
+//Forms
+.form-title {
+    margin-bottom: 10px;
+}
+.form-input, select {
+    margin-bottom: 7px;
+}
+.form-submit {
+    @include button($lt-blue);
+}

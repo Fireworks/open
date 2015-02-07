@@ -5,12 +5,13 @@ $desktop: 'only screen and (min-width: 1201px)';
 //Colors
 $site-bg: #E0FDFF;
 $dk-gray: #181818;
+$lt-gray: #DDDDDD;
 $white: #FFFFFF;
 $lt-blue: #6BB0FF;
 $lt-green: #27D36B;
 $lt-red: #F55A5A;
 
-
+//Animation duration
 $duration: 0.2s;
 
 //Mixins
@@ -23,6 +24,9 @@ $duration: 0.2s;
 }
 
 @mixin button($color: $black) {
+    @include transition(all, $duration, ease-in-out);
+    @include border-radius(6px);
+
     padding: 7px 15px;
     font-size: 14px;
     font-weight: 500;
@@ -30,18 +34,14 @@ $duration: 0.2s;
     line-height: 100%;
     text-align: center;
     border: 3px solid;
-    @include transition(all, $duration, ease-in-out);
+    color: #FFFFFF;
+    background: $color;
+
+    &:hover {
+        background: lighten($color, 10%);
+    }
     @media #{$tablet} {
         padding: 9px 19px;
-    }
-    @include button-color($color);
-}
-@mixin button-color($color) {
-    color: $color;
-    border-color: $color;
-    .no-touch &:hover {
-        color: $rev-red;
-        border-color: $rev-red;
     }
 }
 
@@ -112,4 +112,21 @@ p {
 a {
     text-decoration: none;
     @include transition(all, $duration, ease-in-out);
+}
+
+input[type="text"] {
+    @include border-radius(5px);
+    height: 20px;
+    border: 1px solid $lt-gray;
+    padding: 5px;
+}
+
+textarea {
+    @include border-radius(5px);
+    width: 300px;
+    max-width: 100%;
+    height: 100px;
+    border: 1px solid $lt-gray;
+    padding: 5px;
+    resize: both;
 }
