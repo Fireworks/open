@@ -10,8 +10,17 @@ class DatedMixin(models.Model):
         abstract = True
 
 class Project(DatedMixin, models.Model):
+    LANGUAGES = (
+        ('Python', 'Python'),
+        ('Javascript', 'Javascript'),
+        ('Java', 'Java'),
+    )
+
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=100)
-    desc = models.TextField()
-    lang = models.CharField(max_length=25)
-    source = models.URLField()
+    desc = models.TextField(blank=True)
+    lang = models.CharField(max_length=25, choices=LANGUAGES)
+    source = models.URLField(blank=True)
+
+    def get_absolute_url(self):
+        return "/project/%i/" % self.id
