@@ -9,9 +9,9 @@ class DatedMixin(models.Model):
         abstract = True
 
 class User(DatedMixin, models.Model):
-    first_name  = models.CharField(max_length=15)
+    first_name  = models.CharField(max_length=15, blank=True)
     middle_name = models.CharField(max_length=20, blank=True)
-    last_name   = models.CharField(max_length=25)
+    last_name   = models.CharField(max_length=25, blank=True)
     username    = models.CharField(max_length=15, unique=True)
     password    = models.CharField(max_length=25)
     email       = models.CharField(max_length=50)
@@ -52,42 +52,26 @@ class FeedbackCode(DatedMixin, models.Model):
     user        = models.ForeignKey(User)
     code        = models.ForeignKey(Code)
     text        = models.TextField()
-
-class Project(DatedMixin, models.Model):
-    LANGUAGES = (
-        ('Python', 'Python'),
-        ('Javascript', 'Javascript'),
-        ('Java', 'Java'),
-    )
-
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
-    name = models.CharField(max_length=100)
-    desc = models.TextField(blank=True)
-    lang = models.CharField(max_length=25, choices=LANGUAGES)
-    source = models.URLField(blank=True)
-
-    def get_absolute_url(self):
-        return "/project/%i/" % self.id
     
-#class Project(DatedMixin, models.Model):
-#    users       = models.ManyToManyField(User, related_name='project_users')
-#    comments    = models.ManyToManyField(User, related_name='project_comments', through='CommentProject')
-#    feedback    = models.ManyToManyField(User, related_name='project_feedback', through='FeedbackProject')
-#    language    = models.ForeignKey(Language)
-#    name        = models.CharField(max_length=20)
-#    description = models.TextField(blank=True)
-#    source      = models.URLField(blank=True)
-#    rating      = models.IntegerField()
-#    
-#    def __unicode__(self):
-#        return (self.name + ' ' + self.language)
-#
-#class CommentProject(DatedMixin, models.Model):
-#    user        = models.ForeignKey(User)
-#    code        = models.ForeignKey(Code)
-#    text        = models.TextField()
-#    
-#class FeedbackProject(DatedMixin, models.Model):
-#    user        = models.ForeignKey(User)
-#    code        = models.ForeignKey(Code)
-#    text        = models.TextField()
+class Project(DatedMixin, models.Model):
+    users       = models.ManyToManyField(User, related_name='project_users')
+    comments    = models.ManyToManyField(User, related_name='project_comments', through='CommentProject')
+    feedback    = models.ManyToManyField(User, related_name='project_feedback', through='FeedbackProject')
+    language    = models.ForeignKey(Language, null=True)
+    name        = models.CharField(max_length=20)
+    description = models.TextField(blank=True)
+    source      = models.URLField(blank=True)
+    rating      = models.IntegerField()
+    
+    def __unicode__(self):
+        return (self.name + ' ' + self.language)
+
+class CommentProject(DatedMixin, models.Model):
+    user        = models.ForeignKey(User)
+    code        = models.ForeignKey(Project)
+    text        = models.TextField()
+    
+class FeedbackProject(DatedMixin, models.Model):
+    user        = models.ForeignKey(User)
+    code        = models.ForeignKey(Project)
+    text        = models.TextField()
