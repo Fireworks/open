@@ -1,35 +1,34 @@
 from django.contrib import admin
 from openapp.models import *
 
+@admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('username', 'first_name', 'middle_name', 'last_name', 'email', 'created')
 
+@admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'version')
 
+@admin.register(Code)
 class CodeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'short_description', 'language', 'created', 'edited')
 
+@admin.register(CodeComment)  
 class CodeCommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'code', 'short_text', 'created', 'edited')
 
+@admin.register(CodeFeedback)
 class CodeFeedbackAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'code', 'short_text', 'created', 'edited')
 
+@admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'short_description', 'language', 'created', 'edited')
 
+@admin.register(ProjectComment)
 class ProjectCommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'project', 'short_text', 'created', 'edited')
 
+@admin.register(ProjectFeedback)
 class ProjectFeedbackAdmin(admin.ModelAdmin):
-    pass
-
-admin.site.register(User, UserAdmin)
-admin.site.register(Language, LanguageAdmin)
-admin.site.register(Code, CodeAdmin)
-admin.site.register(Project, ProjectAdmin)
-admin.site.register(CodeComment, CodeCommentAdmin)
-admin.site.register(CodeFeedback, CodeFeedbackAdmin)
-admin.site.register(ProjectComment, ProjectCommentAdmin)
-admin.site.register(ProjectFeedback, ProjectFeedbackAdmin)
+    list_display = ('user', 'project', 'short_text', 'created', 'edited')
