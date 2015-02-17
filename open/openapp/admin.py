@@ -10,18 +10,26 @@ class LanguageAdmin(admin.ModelAdmin):
 class CodeAdmin(admin.ModelAdmin):
     pass
 
-#class ProjectAdmin(admin.ModelAdmin):
-#    pass
-
-class CommentCodeAdmin(admin.ModelAdmin):
+class CodeCommentAdmin(admin.ModelAdmin):
     pass
 
-class FeedbackCodeAdmin(admin.ModelAdmin):
+class CodeFeedbackAdmin(admin.ModelAdmin):
+    pass
+
+class ProjectAdmin(admin.ModelAdmin):
+    pass
+
+class ProjectCommentAdmin(admin.ModelAdmin):
+    pass
+
+class ProjectFeedbackAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Code, CodeAdmin)
-#admin.site.register(Project, ProjectAdmin)
-admin.site.register(CommentCode, CommentCodeAdmin)
-admin.site.register(FeedbackCode, FeedbackCodeAdmin)
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(CodeComment, CodeCommentAdmin)
+admin.site.register(CodeFeedback, CodeFeedbackAdmin)
+admin.site.register(ProjectComment, ProjectCommentAdmin)
+admin.site.register(ProjectFeedback, ProjectFeedbackAdmin)

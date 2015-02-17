@@ -14,7 +14,7 @@ class User(DatedMixin, models.Model):
     last_name   = models.CharField(max_length=25, blank=True)
     username    = models.CharField(max_length=15, unique=True)
     password    = models.CharField(max_length=25)
-    email       = models.CharField(max_length=50)
+    email       = models.EmailField(max_length=50)
     
     def __unicode__(self):
         return self.username
@@ -32,31 +32,40 @@ class Language(DatedMixin, models.Model):
     
 class Code(DatedMixin, models.Model):
     users       = models.ManyToManyField(User, related_name='code_users')
-    comments    = models.ManyToManyField(User, related_name='code_comments', through='CommentCode')
-    feedback    = models.ManyToManyField(User, related_name='code_feedback', through='FeedbackCode')
+    comments    = models.ManyToManyField(User, related_name='code_comments', through='CodeComment')
+    feedback    = models.ManyToManyField(User, related_name='code_feedback', through='CodeFeedback')
     language    = models.ForeignKey(Language)
     name        = models.CharField(max_length=20)
     description = models.TextField(blank=True)
     source      = models.TextField()
     rating      = models.IntegerField()
     
+    class Meta:
+        verbose_name_plural = 'Code'
+    
     def __unicode__(self):
         return (self.name + ': ' + self.description)
 
-class CommentCode(DatedMixin, models.Model):
+class CodeComment(DatedMixin, models.Model):
     user        = models.ForeignKey(User)
     code        = models.ForeignKey(Code)
     text        = models.TextField()
     
-class FeedbackCode(DatedMixin, models.Model):
+    def __unicode__(self):
+        return (self.text)
+    
+class CodeFeedback(DatedMixin, models.Model):
     user        = models.ForeignKey(User)
     code        = models.ForeignKey(Code)
     text        = models.TextField()
+    
+    def __unicode__(self):
+        return (self.text)
     
 class Project(DatedMixin, models.Model):
     users       = models.ManyToManyField(User, related_name='project_users')
-    comments    = models.ManyToManyField(User, related_name='project_comments', through='CommentProject')
-    feedback    = models.ManyToManyField(User, related_name='project_feedback', through='FeedbackProject')
+    comments    = models.ManyToManyField(User, related_name='project_comments', through='ProjectComment')
+    feedback    = models.ManyToManyField(User, related_name='project_feedback', through='ProjectFeedback')
     language    = models.ForeignKey(Language, null=True)
     name        = models.CharField(max_length=20)
     description = models.TextField(blank=True)
@@ -66,12 +75,18 @@ class Project(DatedMixin, models.Model):
     def __unicode__(self):
         return (self.name + ' ' + self.language)
 
-class CommentProject(DatedMixin, models.Model):
+class ProjectComment(DatedMixin, models.Model):
     user        = models.ForeignKey(User)
     code        = models.ForeignKey(Project)
     text        = models.TextField()
     
-class FeedbackProject(DatedMixin, models.Model):
+    def __unicode__(self):
+        return (self.text)
+    
+class ProjectFeedback(DatedMixin, models.Model):
     user        = models.ForeignKey(User)
     code        = models.ForeignKey(Project)
     text        = models.TextField()
+    
+    def __unicode__(self):
+        return (self.text)
