@@ -1,3 +1,4 @@
 Django
 django_compressor
 django-libsass
+django-haystack
