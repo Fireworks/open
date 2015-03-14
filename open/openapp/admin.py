@@ -1,10 +1,6 @@
 from django.contrib import admin
 from openapp.models import *
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'first_name', 'middle_name', 'last_name', 'email', 'created')
-
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
     list_display = ('name', 'version')
