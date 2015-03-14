@@ -1,0 +1,8 @@
+{% for code_crumb in code_crumbs %}
+    <li><a href="{% url 'code' code_crumb.id %}">{{code_crumb.name}}: {{code_crumb.description}}</a></li>
+{% endfor %}
+
+{% for project in projects %}
+    <li><a href="{% url 'project' project.id %}">{{project.name}}: {{projects.description}}</a></li>
+{% endfor %}
+

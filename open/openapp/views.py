@@ -9,6 +9,16 @@ def home(request):
     projects = Project.objects.all()
     return render(request, "openapp/home.html", {"projects": projects})
 
+def search(request):
+    language = request.GET['language']
+    name = request.GET['name']
+    code_crumbs = Code.objects.filter(language__name__exact = language, name__contains = name).order_by('-rating')
+    projects = Project.objects.filter(language__name__exact = language, name__contains = name).order_by('-rating')
+    return render(request, "openapp/search.html", {"code_crumbs": code_crumbs, "projects": projects})
+
+def code(request, code_id):
+    return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id)})
+
 def project(request, pid):
     return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid)})
 

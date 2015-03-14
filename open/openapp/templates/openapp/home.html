@@ -4,6 +4,13 @@
     <div class="info-box">
         OpenCode is a central location for all open-source projects on the web.  We provide a clean and intuitive interface for managing your open-source project, including a feedback system, ratings, discussion threads, and more.  We are not a place to actively develop and manage version control of your project, but rather to assist with giving your project a personal home.  This allows for better discovery and interaction with your project!  Click the "Add" button in the navigation bar to setup your own OpenCode project page or use our search feature to find the perfect open-source project for your needs.
     </div>
+    <div class="search-box">
+        <form action="{% url 'search' %}" method="get">
+            <input type="text" name="language"/>
+            <input type="text" name="name"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </div>
     <div class="info-box">
         <h3>All Current Projects</h3>
     {% for project in projects %}
