@@ -34,6 +34,9 @@ class Code(DatedMixin, models.Model):
     def short_description(self):
         return truncatechars(self.description, 100)
     
+    def get_absolute_url(self):
+        return ('/code/%s' % self.id)
+    
     def __unicode__(self):
         return (self.name)
 

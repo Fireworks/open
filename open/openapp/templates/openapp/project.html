@@ -1,9 +1,9 @@
 {% extends "openapp/base.html" %}
 {% block content %}
 <div class="project">
-    {{project.name}} by {{project.owner}}<br/>
-    {{project.desc}}<br/>
-    {{project.lang}}<br/>
+    {{project.name}} by {% for user in project.users.all %}{{ user }}{% endfor %}<br/>
+    {{project.description}}<br/>
+    {{project.language}}<br/>
     {{project.created}}<br/>
     {{project.edited}}<br/>
 </div>

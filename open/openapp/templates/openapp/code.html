@@ -1,0 +1,10 @@
+{% extends "openapp/base.html" %}
+{% block content %}
+<div class="code">
+    {{code.name}} by {% for user in code.users.all %}{{ user }}{% endfor %}<br/>
+    {{code.description}}<br/>
+    {{code.language}}<br/>
+    {{code.created}}<br/>
+    {{code.edited}}<br/>
+</div>
+{% endblock %}

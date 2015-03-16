@@ -1,10 +1,13 @@
-from django.forms import *
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from openapp.models import Project, Code
+from haystack.forms import ModelSearchForm
+from haystack.inputs import Exact, Raw
 
-class ProjectForm(ModelForm):
+class BasicSearchForm(ModelSearchForm):
+    q = forms.CharField(required=True, label=('Name'))
+    language = forms.CharField(required=False)
 
     class Meta:
         model = Project
@@ -16,9 +19,15 @@ class CodeForm(ModelForm):
         model = Code
         fields = ['name', 'language', 'description', 'source']
 
-# class RegisterForm(UserCreationForm)
-    
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'first_name', 'last_name', 'password']
+
+    def search(self):
+        # First, store the SearchQuerySet received from other processing.
+        sqs = super(BasicSearchForm, self).search()
+
+        if not self.is_valid():
+            return self.no_query_found()
         
+         # Check to see if a start_date was chosen.
+        if self.cleaned_data['language']:
+            sqs = sqs.filter(language__name__exact=self.cleaned_data['language'])
+        return sqs
