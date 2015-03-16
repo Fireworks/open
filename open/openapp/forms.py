@@ -34,4 +34,7 @@ class BasicSearchForm(ModelSearchForm):
          # Check to see if a start_date was chosen.
         if self.cleaned_data['language']:
             sqs = sqs.filter(language=self.cleaned_data['language'])
+            
+        sqs = sqs.order_by('-rating')
+        
         return sqs

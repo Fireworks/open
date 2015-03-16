@@ -7,6 +7,7 @@ class CodeIndex(indexes.SearchIndex, indexes.Indexable):
     name = indexes.CharField(model_attr='name')
     language = indexes.IntegerField(model_attr='language__id')
     description = indexes.CharField(model_attr='description')
+    rating = indexes.IntegerField(model_attr='rating')
     
     def get_model(self):
         return Code
@@ -20,6 +21,7 @@ class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
     name = indexes.CharField(model_attr='name')
     language = indexes.IntegerField(model_attr='language__id')
     description = indexes.CharField(model_attr='description')
+    rating = indexes.IntegerField(model_attr='rating')
 
     def get_model(self):
         return Project
