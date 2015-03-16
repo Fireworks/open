@@ -5,10 +5,8 @@ from openapp.models import Project, Code
 from haystack.forms import ModelSearchForm
 from haystack.inputs import Exact, Raw
 
-class BasicSearchForm(ModelSearchForm):
-    q = forms.CharField(required=True, label=('Name'))
-    language = forms.CharField(required=False)
-
+class ProjectForm(ModelForm):
+    
     class Meta:
         model = Project
         fields = ['name', 'description', 'language', 'source']
@@ -19,6 +17,9 @@ class CodeForm(ModelForm):
         model = Code
         fields = ['name', 'language', 'description', 'source']
 
+class BasicSearchForm(ModelSearchForm):
+    q = forms.CharField(required=True, label=('Name'))
+    language = forms.CharField(required=False)
 
     def search(self):
         # First, store the SearchQuerySet received from other processing.
