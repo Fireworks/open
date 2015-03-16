@@ -10,9 +10,20 @@
             <a href="/search">
                 <i class="search fa fa-search"></i>
             </a>
-            <a href="#">
-                <i class="account fa fa-user"></i>
+            {% if user.is_authenticated %}
+            <div class="submenu">
+                <a href="#">
+                    <i class="account fa fa-user"></i>
+                </a>
+                <ul>
+                    <li><a href="/logout">Sign Out</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <a href="#signup" rel="leanModal">
+                <i class="account fa fa-sign-in"></i>
             </a>
+            {% endif %}
         </div>
     </nav>
 </header>

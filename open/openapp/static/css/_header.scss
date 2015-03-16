@@ -19,10 +19,15 @@ header {
     .actions {
         display: table;
         float: right;
-        a {
-            display: table-cell;
-            vertical-align: middle;
+        a, .submenu {
+            float: left;
             text-align: center;
+        }
+        .submenu {
+            width: 50px;
+            @media #{$tablet} {
+                width: 65px;
+            }
         }
         i {
             display: table-cell;
@@ -38,6 +43,18 @@ header {
                 height: 65px;
                 line-height: 45px;
                 font-size: 45px;
+            }
+        }
+
+        ul {
+            display: none;
+            padding: 0;
+        }
+        .submenu:hover ul {
+            display: inline;
+            a {
+                background: $white;
+                padding: 5px;
             }
         }
         .add {

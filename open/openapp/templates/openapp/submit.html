@@ -1,11 +1,42 @@
 {% extends "openapp/base.html" %}
 {% block content %}
     <div class="info-box">
-        <form action="/submit/" method="post">{% csrf_token %}
+        <label>
+            <input class="toggle" checked type="radio" name="toggle" value="project" />
+            Project (full code package)
+        </label>
+        <label>
+            <input class="toggle" type="radio" name="toggle" value="code" />
+            Code Snippet
+        </label>
+        <form class="project-form toggleable" action="/submit/" method="post">{% csrf_token %}
             <h3 class="form-title">Submit a Project</h3>
-            Project Title: {{form.name}} <br/>
-            Project Language: {{form.language}} <br/>
-            Description: {{form.description}} <br/>
+            Project Title: {{project_form.name}} <br/>
+            Language: {{project_form.language}} <br/>
+            Description: {{project_form.description}} <br/>
+            Source/homepage URL: {{project_form.source}} <br/>
             <input class="form-submit" type="submit" value="Submit Project" />
         </form>
+        <form class="code-form toggleable" action="/submit/" method="post">{% csrf_token %}
+            <h3 class="form-title">Submit a Code Snippet</h3>
+            Code Snippet Title: {{code_form.name}} <br/>
+            Language: {{code_form.language}} <br/>
+            Description: {{code_form.description}} <br/>
+            Code source: {{code_form.source}} <br/>
+            <input class="form-submit" type="submit" value="Submit Code Snippet" />
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(function() {
+        $('.code-form').hide();
+
+        $('.toggle').click(function(){
+            $('.toggleable').hide();
+            console.log($(this).val());
+            $('.' + $(this).val() + '-form').show('slow');
+        });
+    });
+</script>
 {% endblock %}

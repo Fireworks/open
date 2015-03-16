@@ -30,3 +30,155 @@ body {
 .form-submit {
     @include button($lt-blue);
 }
+
+//Lightboxes
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+.lightbox-header { 
+    height: 40px;
+    background: black;
+    color: $white;
+    text-align: center;
+    line-height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.twitter-signin {
+    background: $white;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 15px;
+}
+
+.lightbox-or-separator {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: $white;
+
+    span {
+        margin: 0;
+        padding: 0 10px;
+        background: $white;
+        display: inline-block;  
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        border-top: 1px solid grey;
+        z-index: -1;
+    }
+}
+
+
+.forgot-pass{
+    font-size: 11px;
+    margin-top: 5px;
+    text-align: center;
+    color: red;
+}
+
+.lightbox-content {
+    background: $white;
+    padding: 25px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin: 0 auto;
+
+    input[type="checkbox"] {
+        line-height: 20px;
+        vertical-align: top;
+        margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+        background: grey;
+        color: grey;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    input[type="file"] {
+        display: block;
+        border: none;
+        box-shadow: none;
+        margin-bottom: 10px;
+    }
+
+    input[type="date"], input[type="time"] {
+        background: grey;
+        color: grey;
+        display: block;
+        border: none;
+        box-shadow: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    textarea {
+        height: 75px;
+        background: grey;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+        display: block;
+        width: 89%;
+        background: grey;
+        height: 20px;
+        color: grey;
+        box-shadow: none;
+        border: none;
+        padding: 5px 10px 5px 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.lightbox-bottom-link {
+    font-size: 11px;
+    margin-top: 15px;
+    text-align: center;
+    color: blue;
+}
+
+.lightbox-error {
+    background: $white;
+    color: red;
+    text-align: center;
+    padding: 5px 5px 0 5px;
+}
+
+.lightbox {
+    display: none;
+    width: 225px;
+    margin: 0 auto;
+}

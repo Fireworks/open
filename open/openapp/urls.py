@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^code/(\d+)/$', 'openapp.views.code', name='code'),
     url(r'^project/(\d+)/$', 'openapp.views.project', name="project"),
     url(r'^submit/$', 'openapp.views.submit', name="submit"),
+    url(r'^register/', 'openapp.views.register', name="register"),
+    url(r'^logout/', 'openapp.views.logout_view', name="logout"),
 )

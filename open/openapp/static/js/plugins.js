@@ -21,4 +21,12 @@
     }
 }());
 
-// Place any jQuery/helper plugins in here.
+// Lightbox plugin
+$(function() {
+    $('a[rel*=leanModal]').click(function() {
+        $(".lightbox").hide();
+    });
+    $('a[rel*=leanModal]').leanModal({
+        closeButton: ".modal_close"
+    });
+});
