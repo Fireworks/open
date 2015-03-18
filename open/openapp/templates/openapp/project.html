@@ -1,10 +1,21 @@
 {% extends "openapp/base.html" %}
+
 {% block content %}
 <div class="project">
-    {{project.name}} by {% for user in project.users.all %}{{ user }}{% endfor %}<br/>
-    {{project.description}}<br/>
-    {{project.language}}<br/>
-    {{project.created}}<br/>
-    {{project.edited}}<br/>
+    <div class="project-title h1">
+        {{project.name}}
+    </div>
+    <div class="project-authors h4">
+        Author: {% for user in project.users.all %}{{ user }}{% endfor %}
+    </div>
+    <div class="project-lang">
+        {{project.language}}
+    </div>
+    <div class="project-dates">
+        Created on: {{project.created}}<br/>
+        Edited last: {{project.edited}}
+    <div class="project-description">
+        {{project.description}}
+    </div>
 </div>
 {% endblock %}

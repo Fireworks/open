@@ -5,6 +5,9 @@
 @import "_header";
 @import "_footer";
 
+//Pages
+@import "pages/project";
+
 body {
     background: $site-bg;
 }
