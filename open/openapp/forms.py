@@ -25,13 +25,11 @@ class BasicSearchForm(ModelSearchForm):
     language = forms.ChoiceField(required=False, choices=language_options)
 
     def search(self):
-        # First, store the SearchQuerySet received from other processing.
         sqs = super(BasicSearchForm, self).search()
 
         if not self.is_valid():
             return self.no_query_found()
         
-         # Check to see if a start_date was chosen.
         if self.cleaned_data['language']:
             sqs = sqs.filter(language=self.cleaned_data['language'])
             

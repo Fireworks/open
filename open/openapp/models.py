@@ -74,7 +74,7 @@ class Project(DatedMixin, models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField(blank=True)
     source = models.URLField(blank=True)
-    rating = models.IntegerField(blank=True, null=True)
+    rating = models.IntegerField(blank=True, default=0)
     
     def short_description(self):
         return truncatechars(self.description, 100)

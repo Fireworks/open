@@ -4,9 +4,15 @@
             <div class="logo">OpenCode</div>
         </a>
         <div class="actions">
+            {% if user.is_authenticated %}
             <a href="/submit">
                 <i class="add fa fa-plus"></i>
             </a>
+            {% else %}
+            <a href="#signin" rel="leanModal">
+                <i class="add fa fa-plus"></i>
+            </a>
+            {% endif %}
             <a href="/search">
                 <i class="search fa fa-search"></i>
             </a>
