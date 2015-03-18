@@ -155,11 +155,12 @@ body {
         width: 89%;
         background: grey;
         height: 20px;
-        color: grey;
+        color: $white;
         box-shadow: none;
         border: none;
         padding: 5px 10px 5px 10px;
         margin-bottom: 10px;
+        border-radius: 5px;
     }
 }
 
@@ -173,12 +174,18 @@ body {
 .lightbox-error {
     background: $white;
     color: red;
-    text-align: center;
-    padding: 5px 5px 0 5px;
+    text-align: left;
+    padding: 2px 0;
+    font-size: 10px;
 }
 
 .lightbox {
     display: none;
     width: 225px;
     margin: 0 auto;
+}
+
+.lightbox-button {
+    @include button($lt-blue);
+    width: 100%;
 }

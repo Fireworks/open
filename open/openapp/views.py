@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import auth
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -47,7 +47,21 @@ def register(request):
     args['form'] = UserCreationForm()
 
     if form.is_valid():
-        form.save()
+        new_user = form.save()
+        new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+        login(request, new_user)
         return HttpResponse(status=201)
 
     return JsonResponse(form.errors, status=400, safe=False)
+
+@require_POST
+def signin(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return HttpResponse(status=201)
+
+    return JsonResponse(error="Login details incorrect", status=400, safe=False)

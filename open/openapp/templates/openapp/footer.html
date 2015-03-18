@@ -2,25 +2,47 @@
     Created by Justin Hundley and Billy Panebianco
 </footer>
 
-<form class="lightbox" id="signup" ng-app="modal" ng-controller="RegisterCtrl" ng-submit="register()">
-    <div class="lightbox-header">
-        Sign Up
-    </div>
-    <div class="lightbox-error" ng-switch="error">
-        {% for field in form %}
-            <div ng-repeat="error in errors.{{field.name}}" ng-bind"error"></div>
-        {% endfor %}
-    </div>
-    <div class="lightbox-content">
-        <input id="signup-email" placeholder="Email" type="text" ng-model="email"/>
-        <input id="signup-username" placeholder="Username" type="text" ng-model="username"/>
-        <input id="signup-password" placeholder="Password" type="password" ng-model="password"/>
-        <input id="signup-confirm-password" placeholder="Confirm password" type="password" ng-model="confirm"/> 
-        <input class="lightbox-button" type="submit" value="Go" ng-disabled="working"/>
-        <div class="lightbox-bottom-link">
-            <a href="#signin" rel="leanModal" class="lightbox-bottom-link" id="signup-bottom">
-                Already have an account?
-            </a>
+<div ng-app="modal">
+
+    <form class="lightbox" id="signup" ng-controller="RegisterCtrl" ng-submit="register()">
+        <div class="lightbox-header">
+            Sign Up
         </div>
-    </div>
-</form>
+        <div class="lightbox-content">
+            <div class="lightbox-error" ng-repeat="error in errors.email" ng-bind="error"></div>
+            <input id="signup-email" placeholder="Email" type="text" ng-model="email"/>
+            <div class="lightbox-error" ng-repeat="error in errors.username" ng-bind="error"></div>
+            <input id="signup-username" placeholder="Username" type="text" ng-model="username"/>
+            <div class="lightbox-error" ng-repeat="error in errors.password1" ng-bind="error"></div>
+            <input id="signup-password" placeholder="Password" type="password" ng-model="password"/>
+            <div class="lightbox-error" ng-repeat="error in errors.password2" ng-bind="error"></div>
+            <input id="signup-confirm-password" placeholder="Confirm password" type="password" ng-model="confirm"/> 
+            <input class="lightbox-button" type="submit" value="Go" ng-disabled="working"/>
+            <div class="lightbox-bottom-link">
+                <a href="#signin" rel="leanModal" class="lightbox-bottom-link" id="signup-bottom">
+                    Already have an account?
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <form class="lightbox" id="signin" ng-controller="SigninCtrl" ng-submit="signin()">
+        <div class="lightbox-header">
+            Sign In
+        </div>
+        <div class="lightbox-content">
+
+            <div class="lightbox-error" ng-show="error">Login details incorrect.</div>
+
+            <input id="signup-username" placeholder="Username" type="text" ng-model="username"/>
+            <input id="signup-password" placeholder="Password" type="password" ng-model="password"/>
+
+            <input class="lightbox-button" type="submit" value="Go" ng-disabled="working"/>
+            <div class="lightbox-bottom-link">
+                <a href="#signup" rel="leanModal" class="lightbox-bottom-link" id="signup-bottom">
+                    Need an account?
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

@@ -6,11 +6,11 @@ modal.config(['$httpProvider', function($httpProvider) {
 }]);
 
 modal.controller("RegisterCtrl", function RegisterCtrl($scope, $http){
-    $scope.error = null;
+    $scope.errors = null;
     $scope.working = false;
 
     $scope.register = function(){
-        $scope.error = null;
+        $scope.errors = null;
         $scope.working = true;
         $http({
             method: 'POST',
@@ -24,9 +24,30 @@ modal.controller("RegisterCtrl", function RegisterCtrl($scope, $http){
         }).success(function(data){
             location.reload();
         }).error(function(data){
-            console.log(data);
-            $scope.error = data.reason || 'error';
+            $scope.errors = data;
             $scope.working = false;
         });
     }
-})
+});
+
+modal.controller("SigninCtrl", function SigninCtrl($scope, $http){
+    console.log("test");
+    $scope.error = false;
+
+    $scope.signin = function(){
+        $scope.error = false;
+        $http({
+            method: 'POST',
+            url: "/signin/",
+            data: $.param({
+                username: $scope.username,
+                password: $scope.password
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(data){
+            location.reload();
+        }).error(function(data){
+            $scope.error = true;
+        });
+    }
+});
