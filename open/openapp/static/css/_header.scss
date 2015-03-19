@@ -17,8 +17,10 @@ header {
     }
 
     .actions {
-        display: table;
-        float: right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        
         a, .submenu {
             float: left;
             text-align: center;
