@@ -83,7 +83,7 @@ class Project(DatedMixin, models.Model):
         return ('/project/%s' % self.id)
 
     def __unicode__(self):
-        return (self.name + ' ' + self.language.name)
+        return (self.name)
 
 class ProjectComment(DatedMixin, models.Model):
     user = models.ForeignKey(User)

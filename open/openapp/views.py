@@ -20,7 +20,9 @@ def code(request, code_id):
     return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id)})
 
 def project(request, pid):
-    return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid)})
+    project_comments = ProjectComment.objects.filter(project=pid)
+    project_feedback = ProjectFeedback.objects.filter(project=pid)
+    return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid), "project_comments": project_comments, "project_feedback": project_feedback})
 
 def logout_view(request):
     logout(request)

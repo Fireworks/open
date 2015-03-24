@@ -8,20 +8,54 @@
             <div class="rating-up">&#x25B2;</div><div class="rating-down">&#x25BC;</div>
         </div>
     </div>
-    <div class="project-title h1">
-        {{project.name}}
-    </div>
-    <div class="project-authors h4">
-        Author: {% for user in project.users.all %}{{ user }}{% endfor %}
-    </div>
     <div class="project-lang">
         {{project.language}}
     </div>
-    <div class="project-dates">
-        Created on: {{project.created}}<br/>
-        Edited last: {{project.edited}}
+    <div class="project-title h1">
+        {{project.name}}
+    </div>
     <div class="project-description">
         {{project.description}}
+    </div>
+    <div class="project-users-and-dates">
+        <div class="project-authors">
+            {% if project.users.count == 1 %}
+                Submitted and edited by: {{ project.users.first }}
+            {% else %}
+                Submitted and edited by:
+                    {% for user in project.users.all %}
+                        {% if user != project.users.last %}
+                            {{ user }},
+                        {% else %}
+                            and {{ user }}
+                        {% endif %}
+                    {% endfor %}
+            {% endif %}
+        </div>   
+        <div class="project-dates">
+            Submitted {{project.created}}<br/>
+            Edited {{project.edited}}
+        </div> 
+    </div>
+    <div class="project-comments">
+        <strong>Comments</strong>
+        {% for proj_comment in project_comments %}
+            <div class="project-individual-comment">
+                {{proj_comment.user}}: {{proj_comment.text}} <br/>
+            </div>
+        {% empty %}
+            <br/>No comments
+        {% endfor %}
+    </div>
+    <div class="project-feedback">
+        <strong>Feedback</strong>
+        {% for feedback in project_feedback %}
+            <div class="project-individual-feedback">
+                {{feedback.user}}: {{feedback.text}} <br/>
+            </div>
+        {% empty %}
+            <br/>No feedback
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
