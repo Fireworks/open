@@ -1,42 +1,94 @@
 {% extends "openapp/base.html" %}
 {% block content %}
     <div class="info-box">
-        <label>
-            <input class="toggle" checked type="radio" name="toggle" value="project" />
-            Project (full code package)
-        </label>
-        <label>
-            <input class="toggle" type="radio" name="toggle" value="code" />
-            Code Snippet
-        </label>
+        {% if project_submitted %}
+            <label>
+                <input class="toggle" type="radio" name="toggle" value="code" />
+                Code Snippet
+            </label>
+            <label>
+                <input class="toggle" checked type="radio" name="toggle" value="project" />
+                Project
+            </label>
+        {% else %}
+            <label>
+                <input class="toggle" checked type="radio" name="toggle" value="code" />
+                Code Snippet
+            </label>
+            <label>
+                <input class="toggle" type="radio" name="toggle" value="project" />
+                Project
+            </label>
+        {% endif %}
+        
         <form class="project-form toggleable" action="/submit/" method="post">{% csrf_token %}
             <h3 class="form-title">Submit a Project</h3>
-            Project Title: {{project_form.name}} <br/>
-            Language: {{project_form.language}} <br/>
-            Description: {{project_form.description}} <br/>
-            Source/homepage URL: {{project_form.source}} <br/>
-            <input class="form-submit" type="submit" value="Submit Project" />
+            {% if project_form.errors %}
+                <div class="project-error">
+                    <strong>Error occurred, Project was not submitted</strong>
+                </div>
+            {% endif %}
+            {% for field in project_form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-error">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+                {% if field.errors %}
+                    <strong>{{field.name|capfirst}}: {{field}}</strong><br/>
+                {% else %}
+                    {{field.name|capfirst}}: {{field}}<br/>
+                {% endif %}
+            {% endfor %}
+            <input class="form-submit" type="submit" name="project_submit" value="Submit Project" />
         </form>
         <form class="code-form toggleable" action="/submit/" method="post">{% csrf_token %}
             <h3 class="form-title">Submit a Code Snippet</h3>
-            Code Snippet Title: {{code_form.name}} <br/>
-            Language: {{code_form.language}} <br/>
-            Description: {{code_form.description}} <br/>
-            Code source: {{code_form.source}} <br/>
-            <input class="form-submit" type="submit" value="Submit Code Snippet" />
+            {% if code_form.errors %}
+                <div class="code-error">
+                    <strong>Error occurred, Code Snippet was not submitted</strong>
+                </div>
+            {% endif %}
+            {% for field in code_form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-error">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+                {% if field.errors %}
+                    <strong>{{field.name|capfirst}}: {{field}}</strong><br/>
+                {% else %}
+                    {{field.name|capfirst}}: {{field}}<br/>
+                {% endif %}
+            {% endfor %}
+            <input class="form-submit" type="submit" name="code_snippet_submit" value="Submit Code Snippet" />
         </form>
     </div>
 {% endblock %}
 {% block scripts %}
-<script>
-    $(function() {
-        $('.code-form').hide();
-
-        $('.toggle').click(function(){
-            $('.toggleable').hide();
-            console.log($(this).val());
-            $('.' + $(this).val() + '-form').show('slow');
-        });
-    });
-</script>
+    {% if project_submitted %}
+        <script>
+            $(function() {
+                $('.code-form').hide();
+        
+                $('.toggle').click(function(){
+                    $('.toggleable').hide();
+                    console.log($(this).val());
+                    $('.' + $(this).val() + '-form').show('slow');
+                });
+            });
+        </script>
+    {% else %}
+        <script>
+            $(function() {
+                $('.project-form').hide();
+        
+                $('.toggle').click(function(){
+                    $('.toggleable').hide();
+                    console.log($(this).val());
+                    $('.' + $(this).val() + '-form').show('slow');
+                });
+            });
+        </script>
+    {% endif %}
 {% endblock %}

@@ -28,16 +28,27 @@ def logout_view(request):
 
 @login_required
 def submit(request):
+    project_submitted = False
+    
     if request.method == "POST":
-        project_form = ProjectForm(request.POST)
-        if project_form.is_valid():
-            object = project_form.save()
+        if 'project_submit' in request.POST:
+            submit_form = ProjectForm(request.POST)
+            project_submitted = True
+        else:
+            submit_form = CodeForm(request.POST)
+            
+        if submit_form.is_valid():
+            object = submit_form.save()
             object.users.add(request.user.id)
             object.save()
             return redirect(object)
-        return render(request, "openapp/submit.html", {"project_form": project_form, "code_form": code_form})
+        else:
+            if project_submitted:
+                return render(request, "openapp/submit.html", {"project_form": submit_form, "code_form": CodeForm(), "project_submitted": project_submitted})
+            else:
+                return render(request, "openapp/submit.html", {"project_form": ProjectForm(), "code_form": submit_form, "project_submitted": project_submitted})   
     else:
-        return render(request, "openapp/submit.html", {"project_form": ProjectForm(), "code_form": CodeForm()})
+        return render(request, "openapp/submit.html", {"project_form": ProjectForm(), "code_form": CodeForm(), "project_submitted": project_submitted})
 
 @require_POST
 def register(request):

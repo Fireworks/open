@@ -73,7 +73,7 @@ class Project(DatedMixin, models.Model):
     language = models.ForeignKey(Language, null=True)
     name = models.CharField(max_length=20)
     description = models.TextField(blank=True)
-    source = models.URLField(blank=True)
+    source = models.URLField(blank=False)
     rating = models.IntegerField(blank=True, default=0)
     
     def short_description(self):

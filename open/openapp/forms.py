@@ -10,7 +10,7 @@ class ProjectForm(ModelForm):
     
     class Meta:
         model = Project
-        fields = ['name', 'description', 'language', 'source']
+        fields = ['name', 'language', 'description', 'source']
 
 class CodeForm(ModelForm):
 
