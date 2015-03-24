@@ -21,13 +21,12 @@ def code(request, code_id):
 
 def project(request, pid):
     comment_submitted = False
-    
-    if request.method == "POST":
+    print request.user
+    if request.method == "POST" and not request.user.is_anonymous():
         if 'comment_submit' in request.POST:
             submit_form = ProjectCommentForm(request.POST)
             comment_submitted = True
         else:
-            print 'TEST'
             submit_form = ProjectFeedbackForm(request.POST)
         if submit_form.is_valid():
             object = submit_form.save(commit=False)
