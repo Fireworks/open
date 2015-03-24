@@ -84,6 +84,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/user/%s/" % u.id,
+}
+
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",

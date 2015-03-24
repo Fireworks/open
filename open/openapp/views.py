@@ -16,12 +16,14 @@ def home(request):
 def search(request):
     return render(request, "openapp/search.html")
 
+def user(request, user_id):
+    return render(request, "openapp/user.html", {"user": get_object_or_404(User, id=user_id)})
+
 def code(request, code_id):
     return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id)})
 
 def project(request, pid):
     comment_submitted = False
-    print request.user
     if request.method == "POST" and not request.user.is_anonymous():
         if 'comment_submit' in request.POST:
             submit_form = ProjectCommentForm(request.POST)

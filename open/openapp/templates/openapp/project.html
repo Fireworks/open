@@ -23,14 +23,14 @@
     <div class="project-users-and-dates">
         <div class="project-authors">
             {% if project.users.count == 1 %}
-                Submitted and edited by: {{ project.users.first }}
+                Submitted and edited by: <a href={{ project.users.first.get_absolute_url }}>{{ project.users.first }}</a>
             {% else %}
                 Submitted and edited by:
                     {% for user in project.users.all %}
                         {% if user != project.users.last %}
-                            {{ user }},
+                                <a href={{ user.get_absolute_url }}>{{ user }}</a>,
                         {% else %}
-                            and {{ user }}
+                            and <a href={{ user.get_absolute_url }}>{{ user }}</a>
                         {% endif %}
                     {% endfor %}
             {% endif %}
@@ -44,14 +44,14 @@
         <strong>Comments</strong>
         {% for proj_comment in project_comments %}
             <div class="project-individual_comment">
-                {{proj_comment.user}}: {{proj_comment.text}} <br/>
+                <a href={{ proj_comment.user.get_absolute_url }}>{{ proj_comment.user }}</a>: {{ proj_comment.text }} <br/>
             </div>
         {% empty %}
             <br/>No comments
         {% endfor %}
-        <form class="project-submit_comment" action="/project/{{project.id}}/" method="post">{% csrf_token %}
+        <form class="project-submit_comment" action="/project/{{ project.id }}/" method="post">{% csrf_token %}
             Add Comment <br/>
-            {{project_comment_form.text}} <br/>
+            {{ project_comment_form.text }} <br/>
             <input class="form-submit_comment" type="submit" name="comment_submit" value="Submit Comment" />
         </form>
     </div>
@@ -59,14 +59,14 @@
         <strong>Feedback</strong>
         {% for feedback in project_feedback %}
             <div class="project-individual_feedback">
-                {{feedback.user}}: {{feedback.text}} <br/>
+                <a href={{ feedback.user.get_absolute_url }}>{{ feedback.user }}</a>: {{ feedback.text }} <br/>
             </div>
         {% empty %}
             <br/>No feedback
         {% endfor %}
-        <form class="project-submit_feedback" action="/project/{{project.id}}/" method="post">{% csrf_token %}
+        <form class="project-submit_feedback" action="/project/{{ project.id }}/" method="post">{% csrf_token %}
             Add Feedback <br/>
-            {{project_feedback_form.text}} <br/>
+            {{ project_feedback_form.text }} <br/>
             <input class="form-submit_feedback" type="submit" name="feedback_submit" value="Submit Feedback" />
         </form>
     </div>

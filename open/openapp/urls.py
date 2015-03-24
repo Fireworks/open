@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'openapp.views.home', name='home'),
     url(r'^search/', SearchView(form_class=BasicSearchForm), name='haystack_search'),
+    url(r'user/(\d+)/$', 'openapp.views.user', name='user'),
     url(r'^code/(\d+)/$', 'openapp.views.code', name='code'),
     url(r'^project/(\d+)/$', 'openapp.views.project', name="project"),
     url(r'^submit/$', 'openapp.views.submit', name="submit"),
