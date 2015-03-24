@@ -2,7 +2,7 @@ from django.forms import *
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from openapp.models import Project, Code, Language
+from openapp.models import *
 from haystack.forms import ModelSearchForm
 from haystack.inputs import Exact, Raw
 
@@ -11,6 +11,18 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'language', 'description', 'source']
+
+class ProjectCommentForm(ModelForm):
+    
+    class Meta:
+        model = ProjectComment
+        fields = ['text']
+
+class ProjectFeedbackForm(ModelForm):
+    
+    class Meta:
+        model = ProjectFeedback
+        fields = ['text']
 
 class CodeForm(ModelForm):
 

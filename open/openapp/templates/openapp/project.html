@@ -17,6 +17,9 @@
     <div class="project-description">
         {{project.description}}
     </div>
+    <div class="project-url">
+        <a href="url">{{project.source}}</a>
+    </div>
     <div class="project-users-and-dates">
         <div class="project-authors">
             {% if project.users.count == 1 %}
@@ -40,22 +43,32 @@
     <div class="project-comments">
         <strong>Comments</strong>
         {% for proj_comment in project_comments %}
-            <div class="project-individual-comment">
+            <div class="project-individual_comment">
                 {{proj_comment.user}}: {{proj_comment.text}} <br/>
             </div>
         {% empty %}
             <br/>No comments
         {% endfor %}
+        <form class="project-submit_comment" action="/project/{{project.id}}/" method="post">{% csrf_token %}
+            Add Comment <br/>
+            {{project_comment_form.text}} <br/>
+            <input class="form-submit_comment" type="submit" name="comment_submit" value="Submit Comment" />
+        </form>
     </div>
     <div class="project-feedback">
         <strong>Feedback</strong>
         {% for feedback in project_feedback %}
-            <div class="project-individual-feedback">
+            <div class="project-individual_feedback">
                 {{feedback.user}}: {{feedback.text}} <br/>
             </div>
         {% empty %}
             <br/>No feedback
         {% endfor %}
+        <form class="project-submit_feedback" action="/project/{{project.id}}/" method="post">{% csrf_token %}
+            Add Feedback <br/>
+            {{project_feedback_form.text}} <br/>
+            <input class="form-submit_feedback" type="submit" name="feedback_submit" value="Submit Feedback" />
+        </form>
     </div>
 </div>
 {% endblock %}

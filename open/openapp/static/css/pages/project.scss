@@ -16,6 +16,7 @@
 
     .project-description {
         margin-top: 5px;
+        margin-bottom: 5px;
         padding: 5px;
         border: 1px solid $lt-gray;
         @include border-radius(5px);
@@ -35,7 +36,14 @@
         @include border-radius(5px);   
     }
     
-    .project-individual-comment {
+    .project-individual_comment {
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid $lt-gray;
+        @include border-radius(5px);   
+    }
+    
+    .project-submit_comment {
         margin-top: 5px;
         padding: 5px;
         border: 1px solid $lt-gray;
@@ -49,7 +57,14 @@
         @include border-radius(5px);   
     }
     
-    .project-individual-feedback {
+    .project-individual_feedback {
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid $lt-gray;
+        @include border-radius(5px);   
+    }
+    
+    .project-submit_feedback {
         margin-top: 5px;
         padding: 5px;
         border: 1px solid $lt-gray;

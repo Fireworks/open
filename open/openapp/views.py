@@ -20,9 +20,23 @@ def code(request, code_id):
     return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id)})
 
 def project(request, pid):
-    project_comments = ProjectComment.objects.filter(project=pid)
-    project_feedback = ProjectFeedback.objects.filter(project=pid)
-    return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid), "project_comments": project_comments, "project_feedback": project_feedback})
+    comment_submitted = False
+    
+    if request.method == "POST":
+        if 'comment_submit' in request.POST:
+            submit_form = ProjectCommentForm(request.POST)
+            comment_submitted = True
+        else:
+            print 'TEST'
+            submit_form = ProjectFeedbackForm(request.POST)
+        if submit_form.is_valid():
+            object = submit_form.save(commit=False)
+            object.user = request.user
+            object.project = Project.objects.get(id=pid)
+            object.save()
+    return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid), "project_comments": ProjectComment.objects.filter(project=pid),
+                                                    "project_comment_form": ProjectCommentForm(), "project_feedback": ProjectFeedback.objects.filter(project=pid),
+                                                    "project_feedback_form": ProjectFeedbackForm(), "comment_submitted": comment_submitted})
 
 def logout_view(request):
     logout(request)
