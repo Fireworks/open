@@ -1,6 +1,38 @@
 {% extends "openapp/base.html" %}
 {% block content %}
-<div class="user">
-    {{user.username}}
-</div>
+    <div class="user">
+        <div class="user-username h1">
+            {{ user.username }}
+        </div>
+        <div class="user-rating h4">
+            Rating: {{ user.rating.rating }}
+        </div>
+        <div class="user-code_snippets">
+            <strong>Code Snippets</strong>
+            {% for code_snippet in code_snippets %}
+                <div class="user-code_snippets-code_snippet">
+                    <div class="user-code_snippets-name">
+                        <a href={{ code_snippet.get_absolute_url }}>{{ code_snippet.name }}</a>
+                    </div>
+                    <div class="user-code_snippet-rating">
+                        Rating: {{ code_snippet.rating }}
+                    </div>
+                </div>        
+            {% endfor %}
+        </div>
+        <div class="user-projects">
+            <strong>Projects</strong>
+            {% for project in projects %}
+                <div class="user-projects-project">
+                    <div class="user-projects-name">
+                        <a href={{ project.get_absolute_url }}>{{ project.name }}</a>
+                    </div>
+                    <div class="user-projects-rating">
+                        Rating: {{ project.rating }}
+                    </div>
+                </div>  
+            {% endfor %}
+        </div>
+        
+    </div>
 {% endblock %}

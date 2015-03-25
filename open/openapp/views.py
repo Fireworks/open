@@ -10,14 +10,16 @@ from openapp.models import *
 from openapp.forms import *
 
 def home(request):
-    projects = Project.objects.all()
-    return render(request, "openapp/home.html", {"projects": projects})
+    projects = Project.objects.all().order_by('-created')[:10]
+    code_snippets = Code.objects.all().order_by('-created')[:10]
+    return render(request, "openapp/home.html", {"code_snippets": code_snippets, "projects": projects})
 
 def search(request):
     return render(request, "openapp/search.html")
 
 def user(request, user_id):
-    return render(request, "openapp/user.html", {"user": get_object_or_404(User, id=user_id)})
+    return render(request, "openapp/user.html", {"user": get_object_or_404(User, id=user_id), "code_snippets": Code.objects.filter(users=user_id),
+                                                 "projects": Project.objects.filter(users=user_id)})
 
 def code(request, code_id):
     return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id)})

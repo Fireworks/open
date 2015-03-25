@@ -6,7 +6,9 @@
 @import "_footer";
 
 //Pages
+@import "pages/code_snippet";
 @import "pages/project";
+@import "pages/user";
 
 body {
     background: $site-bg;

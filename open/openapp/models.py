@@ -10,6 +10,11 @@ class DatedMixin(models.Model):
     class Meta:
         abstract = True
 
+# profile model to add ratings to Users class
+class Rating(models.Model):
+    user = models.OneToOneField(User)
+    rating = models.IntegerField(blank=True, default=0)
+
 class Language(DatedMixin, models.Model):
     name = models.CharField(max_length=20)
     version = models.CharField(max_length=10, blank=True)
@@ -44,6 +49,7 @@ class CodeComment(DatedMixin, models.Model):
     user = models.ForeignKey(User)
     code = models.ForeignKey(Code)
     text = models.TextField()
+    rating = models.IntegerField(blank=True, default=0)
     
     class Meta:
         verbose_name_plural = 'Code Comments'
@@ -58,6 +64,7 @@ class CodeFeedback(DatedMixin, models.Model):
     user = models.ForeignKey(User)
     code = models.ForeignKey(Code)
     text = models.TextField()
+    rating = models.IntegerField(blank=True, default=0)
     
     class Meta:
         verbose_name_plural = 'Code Feedback'
@@ -89,6 +96,7 @@ class ProjectComment(DatedMixin, models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
     text = models.TextField()
+    rating = models.IntegerField(blank=True, default=0)
     
     class Meta:
         verbose_name_plural = 'Project Comments'
@@ -103,6 +111,7 @@ class ProjectFeedback(DatedMixin, models.Model):
     user        = models.ForeignKey(User)
     project     = models.ForeignKey(Project)
     text        = models.TextField()
+    rating = models.IntegerField(blank=True, default=0)
     
     class Meta:
         verbose_name_plural = 'Project Feedback'

@@ -1,5 +1,15 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from openapp.models import *
+
+class RatingInLine(admin.StackedInline):
+    model = Rating
+
+class UserAdmin(UserAdmin):
+    inlines = (RatingInLine, )
+    
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
