@@ -10,9 +10,10 @@ from openapp.models import *
 from openapp.forms import *
 
 def home(request):
+    search_form = BasicSearchForm();
     projects = Project.objects.all().order_by('-created')[:10]
     code_snippets = Code.objects.all().order_by('-created')[:10]
-    return render(request, "openapp/home.html", {"code_snippets": code_snippets, "projects": projects})
+    return render(request, "openapp/home.html", {"code_snippets": code_snippets, "projects": projects, "search_form": search_form})
 
 def search(request):
     return render(request, "openapp/search.html")
@@ -38,7 +39,7 @@ def project(request, pid):
             object.project = Project.objects.get(id=pid)
             object.save()
     return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid), "project_comments": ProjectComment.objects.filter(project=pid),
-                                                    "project_comment_form": ProjectCommentForm(), "project_feedback": ProjectFeedback.objects.filter(project=pid),
+                                                    "project_comment_form": ProjectCommentForm(), "project_feedback": ProjectFeedback.objects.filter(project=pid).order_by('-rating'),
                                                     "project_feedback_form": ProjectFeedbackForm(), "comment_submitted": comment_submitted})
 
 def logout_view(request):

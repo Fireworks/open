@@ -13,6 +13,14 @@
         margin-top: 5px;
         @include border-radius(5px);
     }
+    
+    .project-lang-home {
+        float: left;
+        background: $md-gray;
+        color: $lt-gray;
+        display: inline-block;
+        @include border-radius(5px);
+    }
 
     .project-description {
         margin-top: 5px;
