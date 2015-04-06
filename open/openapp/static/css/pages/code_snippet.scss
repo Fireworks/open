@@ -1,0 +1,6 @@
+.code_snippet {
+    background: $white;
+    padding: 15px;
+
+    @include border-radius(5px);
+}

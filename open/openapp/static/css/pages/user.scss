@@ -1,0 +1,44 @@
+.user {
+    background: $white;
+    padding: 30px;
+    margin-bottom: 15px;
+
+    @include border-radius(5px);
+    
+    .user-username {
+           
+        
+    }
+    
+    .user-rating {
+
+    }
+    
+    .user-code_snippets {
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid $lt-gray;
+        @include border-radius(5px);   
+    }
+    
+    .user-code_snippets-code_snippet {
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid $lt-gray;
+        @include border-radius(5px);   
+    }
+    
+    .user-projects {
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid $lt-gray;
+        @include border-radius(5px);  
+    }
+    
+    .user-projects-project {
+        margin-top: 5px;
+        padding: 5px;
+        border: 1px solid $lt-gray;
+        @include border-radius(5px);  
+    }
+}
