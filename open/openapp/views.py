@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from openapp.models import *
 from openapp.forms import *
 
@@ -38,6 +38,7 @@ def project(request, pid):
             object.user = request.user
             object.project = Project.objects.get(id=pid)
             object.save()
+            return HttpResponseRedirect("")
     return render(request, "openapp/project.html", {"project": get_object_or_404(Project, id=pid), "project_comments": ProjectComment.objects.filter(project=pid),
                                                     "project_comment_form": ProjectCommentForm(), "project_feedback": ProjectFeedback.objects.filter(project=pid).order_by('-rating'),
                                                     "project_feedback_form": ProjectFeedbackForm(), "comment_submitted": comment_submitted})
