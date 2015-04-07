@@ -2,49 +2,60 @@
 
 {% block content %}
 <div class="project">
-    <div class="project-rating">
-        <div class="rating-value">{{project.rating}}</div>
-        <div class="rating-options">
-            <div class="rating-up">&#x25B2;</div><div class="rating-down">&#x25BC;</div>
+    <div class="project-headline">
+        <div class="project-rating">
+            <div class="rating-value">{{project.rating}}</div>
+            <div class="rating-options">
+                <div class="rating-up">&#x25B2;</div><div class="rating-down">&#x25BC;</div>
+            </div>
+        </div>
+        <h2>
+            {{project.name}}
+        </h2>
+        <div class="project-lang">
+            {{project.language}}
         </div>
     </div>
-    <div class="project-lang">
-        {{project.language}}
+    <div class="project-main">
+        <div class="project-info">
+            {{project.description}}
+        </div>
+        <div class="project-info-box">
+            <div class="project-url">
+                Project source: <a href={{project.source}}>{{project.source}}</a>
+            </div>
+            <div class="project-users-and-dates">
+                <div class="project-authors">
+                    {% if project.users.count == 1 %}
+                        Author: <a href={{ project.users.first.get_absolute_url }}>{{ project.users.first }}</a>
+                    {% else %}
+                        Authors:
+                            {% for user in project.users.all %}
+                                {% if user != project.users.last %}
+                                        <a href={{ user.get_absolute_url }}>{{ user }}</a>,
+                                {% else %}
+                                    and <a href={{ user.get_absolute_url }}>{{ user }}</a>
+                                {% endif %}
+                            {% endfor %}
+                    {% endif %}
+                </div>   
+                <div class="project-dates">
+                    Submitted: {{project.created}}<br/>
+                    Last Updated: {{project.edited}}
+                </div> 
+            </div>
+        </div>
     </div>
-    <div class="project-title h1">
-        {{project.name}}
-    </div>
-    <div class="project-description">
-        {{project.description}}
-    </div>
-    <div class="project-url">
-        <a href={{project.source}}>{{project.source}}</a>
-    </div>
-    <div class="project-users-and-dates">
-        <div class="project-authors">
-            {% if project.users.count == 1 %}
-                Submitted and edited by: <a href={{ project.users.first.get_absolute_url }}>{{ project.users.first }}</a>
-            {% else %}
-                Submitted and edited by:
-                    {% for user in project.users.all %}
-                        {% if user != project.users.last %}
-                                <a href={{ user.get_absolute_url }}>{{ user }}</a>,
-                        {% else %}
-                            and <a href={{ user.get_absolute_url }}>{{ user }}</a>
-                        {% endif %}
-                    {% endfor %}
-            {% endif %}
-        </div>   
-        <div class="project-dates">
-            Submitted {{project.created}}<br/>
-            Edited {{project.edited}}
-        </div> 
-    </div>
+
+    <div class="tab tab-active" value="comments">Comments</div>
+    <div class="tab tab-inactive" value="suggestions">Suggestions</div>
+
     <div class="project-comments">
         <strong>Comments</strong>
         {% for proj_comment in project_comments %}
-            <div class="project-individual_comment">
-                <a href={{ proj_comment.user.get_absolute_url }}>{{ proj_comment.user }}</a>: {{ proj_comment.text }} <br/>
+            <div class="project-comment">
+                <a href={{ proj_comment.user.get_absolute_url }}>{{ proj_comment.user }}</a><br/>
+                {{ proj_comment.text }}
             </div>
         {% empty %}
             <br/>No comments
@@ -52,23 +63,58 @@
         <form class="project-submit_comment" action="/project/{{ project.id }}/" method="post">{% csrf_token %}
             Add Comment <br/>
             {{ project_comment_form.text }} <br/>
-            <input class="form-submit_comment" type="submit" name="comment_submit" value="Submit Comment" />
+            <input class="form-submit" type="submit" name="comment_submit" value="Submit Comment" />
         </form>
     </div>
-    <div class="project-feedback">
-        <strong>Feedback</strong>
+    <div class="project-suggestions">
+        <strong>Suggestions</strong>
         {% for feedback in project_feedback %}
-            <div class="project-individual_feedback">
-                <a href={{ feedback.user.get_absolute_url }}>{{ feedback.user }}</a>: {{ feedback.text }} <br/>
+            <div class="project-suggestion">
+                <a href={{ feedback.user.get_absolute_url }}>{{ feedback.user }}</a><br/>
+                {{ feedback.text }}
             </div>
         {% empty %}
-            <br/>No feedback
+            <br/>No Suggestions
         {% endfor %}
         <form class="project-submit_feedback" action="/project/{{ project.id }}/" method="post">{% csrf_token %}
-            Add Feedback <br/>
+            Add Suggestion <br/>
             {{ project_feedback_form.text }} <br/>
-            <input class="form-submit_feedback" type="submit" name="feedback_submit" value="Submit Feedback" />
+            <input class="form-submit" type="submit" name="feedback_submit" value="Submit Suggestion" />
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function() {
+            $.ajaxSetup({data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+              }});
+            $('.project-suggestions').hide();
+    
+            $('.tab').click(function(){
+                $('.project-' + $('.tab-active').attr('value')).hide();
+                
+                $('.project-' + $(this).attr('value')).show('slow');
+
+                $('.tab-active').switchClass('tab-active', 'tab-inactive');
+                $(this).switchClass('tab-inactive', 'tab-active');
+            });
+
+            $('.rating-up').click(function(){
+                $.post("/projectvote/", {isUp: true, modelId: {{ project.id }}});
+                var rating = $('.rating-value');
+                var number = parseInt(rating.text());
+                rating.text(number + 1);
+            });
+
+            $('.rating-down').click(function(){
+                $.post("/projectvote/", {isUp: false, modelId: {{ project.id }}});
+                var rating = $('.rating-value');
+                var number = parseInt(rating.text());
+                rating.text(number - 1);
+            });
+        });
+    </script>
 {% endblock %}

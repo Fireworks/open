@@ -1,10 +1,120 @@
 {% extends "openapp/base.html" %}
+
 {% block content %}
-<div class="code">
-    {{code.name}} by {% for user in code.users.all %}{{ user }}{% endfor %}<br/>
-    {{code.description}}<br/>
-    {{code.language}}<br/>
-    {{code.created}}<br/>
-    {{code.edited}}<br/>
+<div class="project">
+    <div class="project-headline">
+        <div class="project-rating">
+            <div class="rating-value">{{code.rating}}</div>
+            <div class="rating-options">
+                <div class="rating-up">&#x25B2;</div><div class="rating-down">&#x25BC;</div>
+            </div>
+        </div>
+        <h2>
+            {{code.name}}
+        </h2>
+        <div class="project-lang">
+            {{code.language}}
+        </div>
+    </div>
+    <div class="project-main">
+        <div class="project-info">
+            {{code.description}}
+        </div>
+        <pre><code>{{code.source}}</code></pre>
+        <div class="project-info-box">
+            <div class="project-users-and-dates">
+                <div class="project-authors">
+                    {% if project.users.count == 1 %}
+                        Author: <a href={{ project.users.first.get_absolute_url }}>{{ project.users.first }}</a>
+                    {% else %}
+                        Authors:
+                            {% for user in project.users.all %}
+                                {% if user != project.users.last %}
+                                        <a href={{ user.get_absolute_url }}>{{ user }}</a>,
+                                {% else %}
+                                    and <a href={{ user.get_absolute_url }}>{{ user }}</a>
+                                {% endif %}
+                            {% endfor %}
+                    {% endif %}
+                </div>   
+                <div class="project-dates">
+                    Submitted: {{code.created}}<br/>
+                    Last Updated: {{code.edited}}
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <div class="tab tab-active" value="comments">Comments</div>
+    <div class="tab tab-inactive" value="suggestions">Suggestions</div>
+
+    <div class="project-comments">
+        <strong>Comments</strong>
+        {% for code_comment in code_comments %}
+            <div class="project-comment">
+                <a href={{ code_comment.user.get_absolute_url }}>{{ code_comment.user }}</a><br/>
+                {{ code_comment.text }}
+            </div>
+        {% empty %}
+            <br/>No comments
+        {% endfor %}
+        <form class="project-submit_comment" action="/code/{{ code.id }}/" method="post">{% csrf_token %}
+            Add Comment <br/>
+            {{ code_comment_form.text }} <br/>
+            <input class="form-submit" type="submit" name="comment_submit" value="Submit Comment" />
+        </form>
+    </div>
+    <div class="project-suggestions">
+        <strong>Suggestions</strong>
+        {% for feedback in code_feedback %}
+            <div class="project-suggestion">
+                <a href={{ feedback.user.get_absolute_url }}>{{ feedback.user }}</a><br/>
+                {{ feedback.text }}
+            </div>
+        {% empty %}
+            <br/>No Suggestions
+        {% endfor %}
+        <form class="project-submit_feedback" action="/code/{{ code.id }}/" method="post">{% csrf_token %}
+            Add Suggestion <br/>
+            {{ code_feedback_form.text }} <br/>
+            <input class="form-submit" type="submit" name="feedback_submit" value="Submit Suggestion" />
+        </form>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        hljs.initHighlightingOnLoad();
+
+        $(function() {
+            $.ajaxSetup({data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+              }});
+            $('.project-suggestions').hide();
+    
+            $('.tab').click(function(){
+                $('.project-' + $('.tab-active').attr('value')).hide();
+                
+                $('.project-' + $(this).attr('value')).show('slow');
+
+                $('.tab-active').switchClass('tab-active', 'tab-inactive');
+                $(this).switchClass('tab-inactive', 'tab-active');
+            });
+
+            $('.rating-up').click(function(){
+                $.post("/codevote/", {isUp: true, modelId: {{ code.id }}});
+                var rating = $('.rating-value');
+                var number = parseInt(rating.text());
+                rating.text(number + 1);
+            });
+
+            $('.rating-down').click(function(){
+                $.post("/codevote/", {isUp: false, modelId: {{ code.id }}});
+                var rating = $('.rating-value');
+                var number = parseInt(rating.text());
+                rating.text(number - 1);
+            });
+        });
+    </script>
 {% endblock %}

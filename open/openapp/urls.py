@@ -16,4 +16,6 @@ urlpatterns = patterns('',
     url(r'^register/', 'openapp.views.register', name="register"),
     url(r'^signin/', 'openapp.views.signin', name="signin"),
     url(r'^logout/', 'openapp.views.logout_view', name="logout"),
+    url(r'^projectvote/', 'openapp.views.project_vote', name="project_vote"),
+    url(r'^codevote/', 'openapp.views.code_vote', name="code_vote"),
 )

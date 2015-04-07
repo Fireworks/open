@@ -1,11 +1,11 @@
-var modal = angular.module('modal', []);
+var opencode = angular.module('opencode', []);
 
-modal.config(['$httpProvider', function($httpProvider) {
+opencode.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
 
-modal.controller("RegisterCtrl", function RegisterCtrl($scope, $http){
+opencode.controller("RegisterCtrl", function RegisterCtrl($scope, $http){
     $scope.errors = null;
     $scope.working = false;
 
@@ -30,8 +30,7 @@ modal.controller("RegisterCtrl", function RegisterCtrl($scope, $http){
     }
 });
 
-modal.controller("SigninCtrl", function SigninCtrl($scope, $http){
-    console.log("test");
+opencode.controller("SigninCtrl", function SigninCtrl($scope, $http){
     $scope.error = false;
 
     $scope.signin = function(){

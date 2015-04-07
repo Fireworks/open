@@ -1,82 +1,61 @@
 .project {
     background: $white;
-    padding: 15px;
-
+    padding: 25px;
     @include border-radius(5px);
 
-    .project-lang {
-        float: left;
-        background: $md-gray;
-        color: $lt-gray;
-        display: inline-block;
-        padding: 12px;
-        margin-top: 5px;
-        @include border-radius(5px);
+    h2 {
+        display: inline;
     }
-    
-    .project-lang-home {
-        float: left;
+
+    .project-headline, .project-main {
+        padding-bottom: 15px;
+        border-bottom: 1px solid $lt-gray;
+    }
+
+    .project-lang {
+        display: inline-block;
         background: $md-gray;
         color: $lt-gray;
         display: inline-block;
+        margin-top: 5px;
+        padding: 5px;
+        vertical-align: top;
         @include border-radius(5px);
     }
 
-    .project-description {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding: 5px;
+    .project-info {
+        padding: 20px;
+    }
+
+    .project-info-box {
+        background: $lt-gray;
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .project-comments, .project-suggestions {
+        margin-top: 15px;
+    }
+
+    .project-comment, .project-suggestion {
+        padding: 10px;
+        margin-bottom: 10px;
         border: 1px solid $lt-gray;
         @include border-radius(5px);
     }
-    
-    .project-users-and-dates {
-        margin-top: 5px;
+
+    .tab {
+        display: inline-block;
+        margin-top: 10px;
+        background: $lt-gray;
         padding: 5px;
-        border: 1px solid $lt-gray;
+        cursor: pointer;
         @include border-radius(5px);
     }
-    
-    .project-comments {
-        margin-top: 5px;
-        padding: 5px;
-        border: 1px solid $lt-gray;
-        @include border-radius(5px);   
-    }
-    
-    .project-individual_comment {
-        margin-top: 5px;
-        padding: 5px;
-        border: 1px solid $lt-gray;
-        @include border-radius(5px);   
-    }
-    
-    .project-submit_comment {
-        margin-top: 5px;
-        padding: 5px;
-        border: 1px solid $lt-gray;
-        @include border-radius(5px);   
-    }
-    
-    .project-feedback {
-        margin-top: 5px;
-        padding: 5px;
-        border: 1px solid $lt-gray;
-        @include border-radius(5px);   
-    }
-    
-    .project-individual_feedback {
-        margin-top: 5px;
-        padding: 5px;
-        border: 1px solid $lt-gray;
-        @include border-radius(5px);   
-    }
-    
-    .project-submit_feedback {
-        margin-top: 5px;
-        padding: 5px;
-        border: 1px solid $lt-gray;
-        @include border-radius(5px);   
+
+    .tab-active {
+        background: $md-gray;
+        color: $white;
     }
 
     .project-rating {

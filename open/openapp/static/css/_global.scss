@@ -3,7 +3,7 @@ $tablet: 'only screen and (min-width: 801px)';
 $desktop: 'only screen and (min-width: 1201px)';
 
 //Colors
-$site-bg: #E0FDFF;
+$site-bg: #F1EFF2;
 $dk-gray: #181818;
 $md-gray: #818181;
 $lt-gray: #DDDDDD;
@@ -22,6 +22,12 @@ $duration: 0.2s;
     -ms-transition: $transition-property $transition-time $method;
     -o-transition: $transition-property $transition-time $method;
     transition: $transition-property $transition-time $method;
+}
+
+@mixin dropshadow($color: $lt-gray) {
+    -webkit-box-shadow: 5px 5px 10px 0px $color;
+    -moz-box-shadow: 5px 5px 10px 0px $color;
+    box-shadow: 5px 5px 10px 0px $color;
 }
 
 @mixin button($color: $black) {

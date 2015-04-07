@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.db.models import F
 from openapp.models import *
 from openapp.forms import *
 
@@ -97,3 +98,37 @@ def signin(request):
             return HttpResponse(status=201)
 
     return JsonResponse(error="Login details incorrect", status=400, safe=False)
+
+@require_POST
+def code_vote(request):
+    isUp = request.POST['isUp']
+    codeId = request.POST['modelId']
+
+    obj = Code.objects.get(pk=codeId)
+    print obj
+
+    if isUp == 'true':
+        obj.rating += 1;
+    else:
+        obj.rating -= 1;
+
+    obj.save();
+
+    return HttpResponse(status=201)
+
+@require_POST
+def project_vote(request):
+    isUp = request.POST['isUp']
+    projectId = request.POST['modelId']
+
+    obj = Project.objects.get(pk=projectId)
+    print isUp
+
+    if isUp == 'true':
+        obj.rating += 1;
+    else:
+        obj.rating -= 1;
+
+    obj.save();
+
+    return HttpResponse(status=201)

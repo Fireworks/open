@@ -7,6 +7,8 @@ header {
     }
     .logo {
         display: inline-block;
+        margin-left: 20px;
+        font-family: Economica;
         font-size: 35px;
         color: $white;
         line-height: 50px;
@@ -60,21 +62,21 @@ header {
             }
         }
         .add {
-            background: $lt-green;
+            background: darken($lt-blue, 30%);
             &:hover {
-                background: lighten($lt-green, 20%);
+                background: $lt-gray;
             }
         }
         .search {
-            background: $lt-blue;
+            background: darken($lt-blue, 20%);
             &:hover {
-                background: lighten($lt-blue, 20%);
+                background: $lt-gray;
             }
         }
         .account {
-            background: $lt-red;
+            background: darken($lt-blue, 10%);
             &:hover {
-                background: lighten($lt-red, 20%);
+                background: $lt-gray;
             }
         }
     }
