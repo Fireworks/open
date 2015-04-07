@@ -30,6 +30,18 @@ class CodeForm(ModelForm):
         model = Code
         fields = ['name', 'language', 'description', 'source']
 
+class CodeCommentForm(ModelForm):
+    
+    class Meta:
+        model = CodeComment
+        fields = ['text']
+        
+class CodeFeedbackForm(ModelForm):
+    
+    class Meta:
+        model = CodeFeedback
+        fields = ['text']
+
 class BasicSearchForm(ModelSearchForm):
     q = forms.CharField(required=True, label=('Name'))
     languages = Language.objects.all()

@@ -24,7 +24,22 @@ def user(request, user_id):
                                                  "projects": Project.objects.filter(users=user_id)})
 
 def code(request, code_id):
-    return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id)})
+    comment_submitted = False
+    if request.method == "POST" and not request.user.is_anonymous():
+        if 'comment_submit' in request.POST:
+            submit_form = CodeCommentForm(request.POST)
+            comment_submitted = True
+        else:
+            submit_form = CodeFeedbackForm(request.POST)
+        if submit_form.is_valid():
+            object = submit_form.save(commit=False)
+            object.user = request.user
+            object.code = Code.objects.get(id=code_id)
+            object.save()
+            return HttpResponseRedirect("")
+    return render(request, "openapp/code.html", {"code": get_object_or_404(Code, id=code_id), "code_comments": CodeComment.objects.filter(code=code_id),
+                                                    "code_comment_form": CodeCommentForm(), "code_feedback": CodeFeedback.objects.filter(code=code_id).order_by('-rating'),
+                                                    "code_feedback_form": CodeFeedbackForm(), "comment_submitted": comment_submitted})
 
 def project(request, pid):
     comment_submitted = False
