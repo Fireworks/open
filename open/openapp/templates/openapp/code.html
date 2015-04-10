@@ -24,12 +24,12 @@
         <div class="project-info-box">
             <div class="project-users-and-dates">
                 <div class="project-authors">
-                    {% if project.users.count == 1 %}
-                        Author: <a href={{ project.users.first.get_absolute_url }}>{{ project.users.first }}</a>
+                    {% if code.users.count == 1 %}
+                        Author: <a href={{ project.users.first.get_absolute_url }}>{{ code.users.first }}</a>
                     {% else %}
                         Authors:
-                            {% for user in project.users.all %}
-                                {% if user != project.users.last %}
+                            {% for user in code.users.all %}
+                                {% if user != code.users.last %}
                                         <a href={{ user.get_absolute_url }}>{{ user }}</a>,
                                 {% else %}
                                     and <a href={{ user.get_absolute_url }}>{{ user }}</a>
