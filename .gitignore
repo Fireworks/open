@@ -60,3 +60,5 @@ target/
 
 # Whoosh
 whoosh_index/
+
+open/settings.py
