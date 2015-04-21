@@ -27,7 +27,7 @@
             <div class="project-users-and-dates">
                 <div class="project-authors">
                     {% if project.users.count == 1 %}
-                        Author: <a href={{ project.users.first.get_absolute_url }}>{{ project.users.first }}</a>
+                        Author: <a href="/user/{{project.users.first.id}}">{{ project.users.first }}</a>
                     {% else %}
                         Authors:
                             {% for user in project.users.all %}
